@@ -20,6 +20,7 @@ build-options:
   env:
     - GOBIN=/app/bin
     - GOROOT=/usr/lib/sdk/golang
+    - GOPROXY=direct
     - CGO_ENABLED=0
     - PKG=ci/pkg/linux/flatpak
 modules:
@@ -33,6 +34,7 @@ modules:
     buildsystem: simple
     build-commands:
       - version=$(cat VERSION)
+      - $GOROOT/bin/go clean -cache -modcache -i -r
       - $GOROOT/bin/go build -a -trimpath -buildmode=pie -mod=vendor -ldflags="-s -w -X main.version=${version}" -o bin/alpine-client .
       - install -D -m 755 bin/alpine-client /app/bin/alpine-client
       - install -D -m 644 $PKG/com.alpineclient.AlpineClient.desktop /app/share/applications/com.alpineclient.AlpineClient.desktop
