@@ -1,6 +1,6 @@
 id: com.alpineclient.AlpineClient
 runtime: org.freedesktop.Platform
-runtime-version: "23.08"
+runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
@@ -33,6 +33,7 @@ modules:
     buildsystem: simple
     build-commands:
       - version=$(cat VERSION)
+      - $GOROOT/bin/go clean -cache -modcache -i -r
       - $GOROOT/bin/go build -a -trimpath -buildmode=pie -mod=vendor -ldflags="-s -w -X main.version=${version}" -o bin/alpine-client .
       - install -D -m 755 bin/alpine-client /app/bin/alpine-client
       - install -D -m 644 $PKG/com.alpineclient.AlpineClient.desktop /app/share/applications/com.alpineclient.AlpineClient.desktop
@@ -41,4 +42,4 @@ modules:
     sources:
       - type: git
         url: "https://github.com/alpine-client/pinnacle.git"
-        commit: "efd9ddef6b3e8d43803dbf6b6eb43f645da5a0c6"
+        commit: "01d7776ed3a7a2dbc3cdced11978d1cadfecef53"
