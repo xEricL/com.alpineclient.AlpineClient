@@ -20,7 +20,6 @@ build-options:
   env:
     - GOBIN=/app/bin
     - GOROOT=/usr/lib/sdk/golang
-    - GOPROXY=direct
     - CGO_ENABLED=0
     - PKG=ci/pkg/linux/flatpak
 modules:
